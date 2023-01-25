@@ -3,6 +3,7 @@ package com.justin;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,6 +29,21 @@ public class Main {
         return customerRepository.findAll();
     }
 
+    record NewCustomerRequest(
+            String name,
+            String email,
+            Integer age
+    ) {
+
+    }
+
+    public void newCustomer(@RequestBody NewCustomerRequest request) {
+        Customer customer = new Customer();
+        customer.setName(request.name);
+        customer.setEmail(request.email);
+        customer.setAge(request.age);
+        customerRepository.save(customer);
+    }
 
 }
 
