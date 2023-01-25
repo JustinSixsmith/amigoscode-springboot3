@@ -19,12 +19,12 @@ public class Main {
         GreetResponse response = new GreetResponse(
                 "Hello",
                 List.of("Java", "Golang", "JavaScript"),
-                new Person("Alex")
+                new Person("Alex", 28, 30_000)
         );
         return response;
     }
 
-    record Person(String name) {
+    record Person(String name, int age, double savings) {
 
     }
 
