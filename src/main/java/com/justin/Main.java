@@ -31,14 +31,24 @@ public class Main {
             String email,
             Integer age
     ) {
-
     }
 
-    public void newCustomer(@RequestBody NewCustomerRequest request) {
+    @PostMapping
+    public void addCustomer(@RequestBody NewCustomerRequest request) {
         Customer customer = new Customer();
         customer.setName(request.name);
         customer.setEmail(request.email);
         customer.setAge(request.age);
+        customerRepository.save(customer);
+    }
+
+    @PutMapping({"customerId"})
+    public void updateCustomer(@PathVariable("customerId") Integer id,
+                               @RequestBody Customer updatedCustomer) {
+        var customer = customerRepository.getById(id);
+        customer.setName(updatedCustomer.getName());
+        customer.setEmail(updatedCustomer.getEmail());
+        customer.setAge(updatedCustomer.getAge());
         customerRepository.save(customer);
     }
 
